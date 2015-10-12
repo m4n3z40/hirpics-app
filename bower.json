@@ -3,5 +3,9 @@
   "private": "true",
   "devDependencies": {
     "ionic": "driftyco/ionic-bower#1.1.0"
+  },
+  "dependencies": {
+    "leaflet": "~0.7.5",
+    "angular-leaflet-directive": "~0.8.8"
   }
 }

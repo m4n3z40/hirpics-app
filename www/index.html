@@ -5,12 +5,23 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title></title>
 
-
     <!-- compiled css output -->
     <link href="css/ionic.app.css" rel="stylesheet">
 
+    <!-- Leaflet maps styles -->
+    <link rel="stylesheet" href="lib/leaflet/dist/leaflet.css">
+
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+    <!-- Leaftlet maps library -->
+    <script src="lib/leaflet/dist/leaflet.js"></script>
+
+    <!-- Dependency of the leaftlet directive -->
+    <script src="lib/angular-simple-logger/dist/angular-simple-logger.min.js"></script>
+
+    <!-- Angular Leaflet Directive -->
+    <script src="lib/angular-leaflet-directive/dist/angular-leaflet-directive.min.js"></script>
 
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
@@ -20,7 +31,7 @@
     <script src="js/controllers.js"></script>
   </head>
 
-  <body ng-app="starter">
+  <body ng-app="hirpics">
     <ion-nav-view></ion-nav-view>
   </body>
 </html>

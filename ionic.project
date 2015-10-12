@@ -1,6 +1,6 @@
 {
   "name": "hirpics-app",
-  "app_id": "",
+  "app_id": "b61c5021",
   "gulpStartupTasks": [
     "sass",
     "watch"

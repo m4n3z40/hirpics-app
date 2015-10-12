@@ -1,5 +1,30 @@
 <ion-view view-title="Home">
   <ion-content>
-    <h1>Home</h1>
+    <leaflet height="295px"
+             defaults="mapOptions.defaults"
+             tiles="mapOptions.tiles"
+             center="mapOptions.center"
+             markers="mapOptions.markers"
+    >
+    </leaflet>
+    <div class="places-tiles">
+      <div class="places-tiles-item" ng-repeat="place in nearestPlaces">
+        <div class="place-tile"
+             ng-class="{
+              small: place.weight === 1,
+              medium: place.weight === 2,
+              big: place.weight === 3
+             }"
+             ng-style="{backgroundImage: 'url(\'' + place.image + '\')'}"
+             ng-click="goToPlacePics(place.placeId)"
+        >
+          <h4>{{place.placeName}}</h4>
+          <p>Last picture taken {{place.lastPictureTaken}} ago</p>
+          <footer>
+            <p><i class="icon ion-camera"></i> {{place.picsCount}}</p>
+          </footer>
+        </div>
+      </div>
+    </div>
   </ion-content>
 </ion-view>

@@ -9302,15 +9302,15 @@ a.button {
   padding: 10px; }
 
 .place-tile {
-  height: 230px;
+  height: 180px;
   margin-top: 10px;
   display: inline-block;
   vertical-align: top;
   color: #fff; }
   .place-tile.small {
-    width: 33.33333%; }
+    width: 35%; }
   .place-tile.medium {
-    width: 66.66667%; }
+    width: 65%; }
     .place-tile.medium.on-left {
       padding-right: 10px; }
     .place-tile.medium.on-right {

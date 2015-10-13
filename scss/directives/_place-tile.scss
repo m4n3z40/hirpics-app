@@ -1,16 +1,16 @@
 .place-tile {
-  height: 230px;
+  height: 180px;
   margin-top: 10px;
   display: inline-block;
   vertical-align: top;
   color: $light;
 
   &.small {
-    width: (100% / 3);
+    width: 35%;
   }
 
   &.medium {
-    width: (100% / 3) * 2;
+    width: 65%;
 
     &.on-left {
       padding-right: 10px;

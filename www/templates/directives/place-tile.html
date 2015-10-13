@@ -1,0 +1,15 @@
+<div class="place-tile"
+     ng-class="{
+              small: place.weight === 1,
+              medium: place.weight === 2,
+              big: place.weight === 3
+             }"
+     ng-style="{backgroundImage: 'url(\'' + place.image + '\')'}"
+     ng-click="onClick && onClick()"
+  >
+  <h4>{{place.placeName}}</h4>
+  <p>Last picture taken {{place.lastPictureTaken}} ago</p>
+  <footer>
+    <p><i class="icon ion-camera"></i> {{place.picsCount}}</p>
+  </footer>
+</div>

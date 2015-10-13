@@ -4,7 +4,6 @@ To customize the look and feel of Ionic, you can override the variables
 in ionic's _variables.scss file.
 
 For example, you might change some of the default colors:
-
 $light:                           #fff !default;
 $stable:                          #f8f8f8 !default;
 $positive:                        #387ef5 !default;
@@ -9286,3 +9285,73 @@ a.button {
   opacity: 0;
   -webkit-transition-duration: 0s;
   transition-duration: 0s; }
+
+.bar.bar-header.main-nav-bar {
+  background: #ff7300;
+  color: #fff; }
+  .bar.bar-header.main-nav-bar .search-button {
+    margin-right: 20px; }
+  .bar.bar-header.main-nav-bar .button.button-icon:before,
+  .bar.bar-header.main-nav-bar .button .icon:before,
+  .bar.bar-header.main-nav-bar .button.icon:before,
+  .bar.bar-header.main-nav-bar .button.icon-left:before,
+  .bar.bar-header.main-nav-bar .button.icon-right:before {
+    color: #fff; }
+
+.main-content .scroll-content {
+  padding: 10px; }
+
+.place-tile {
+  height: 230px;
+  margin-top: 10px;
+  display: inline-block;
+  vertical-align: top;
+  color: #fff; }
+  .place-tile.small {
+    width: 33.33333%; }
+  .place-tile.medium {
+    width: 66.66667%; }
+    .place-tile.medium.on-left {
+      padding-right: 10px; }
+    .place-tile.medium.on-right {
+      padding-left: 10px; }
+  .place-tile.big {
+    width: 100%; }
+  .place-tile .image-wrapper {
+    position: relative;
+    background-position: center;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    padding: 10px; }
+    .place-tile .image-wrapper:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.2);
+      z-index: 1; }
+  .place-tile header, .place-tile footer {
+    position: relative;
+    z-index: 2;
+    line-height: 12px; }
+  .place-tile header h4 {
+    color: #fff;
+    margin: 0 0 5px;
+    font-size: 15px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; }
+  .place-tile header p {
+    margin: 0;
+    font-size: 12px;
+    color: #edebeb; }
+  .place-tile footer {
+    position: absolute;
+    right: 10px;
+    bottom: 0;
+    width: 100%; }
+    .place-tile footer p {
+      text-align: right; }

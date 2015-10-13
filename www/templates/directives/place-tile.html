@@ -2,14 +2,21 @@
      ng-class="{
               small: place.weight === 1,
               medium: place.weight === 2,
-              big: place.weight === 3
+              big: place.weight === 3,
+              'on-left': place.onLeft === true,
+              'on-right': place.onRigt === true
              }"
-     ng-style="{backgroundImage: 'url(\'' + place.image + '\')'}"
-     ng-click="onClick && onClick()"
   >
-  <h4>{{place.placeName}}</h4>
-  <p>Last picture taken {{place.lastPictureTaken}} ago</p>
-  <footer>
-    <p><i class="icon ion-camera"></i> {{place.picsCount}}</p>
-  </footer>
+  <div class="image-wrapper"
+       ng-style="{backgroundImage: 'url(\'' + place.image + '\')'}"
+       ng-click="onClick && onClick()"
+  >
+    <header>
+      <h4>{{place.placeName}}</h4>
+      <p>Last picture taken {{place.lastPictureTaken}} ago</p>
+    </header>
+    <footer>
+      <p><i class="icon ion-camera"></i> {{place.picsCount}}</p>
+    </footer>
+  </div>
 </div>

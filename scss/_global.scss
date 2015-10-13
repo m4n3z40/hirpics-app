@@ -1,0 +1,22 @@
+.bar.bar-header.main-nav-bar {
+  background: #ff7300;
+  color: $light;
+
+  .search-button {
+    margin-right: 20px;
+  }
+
+  .button.button-icon:before,
+  .button .icon:before,
+  .button.icon:before,
+  .button.icon-left:before,
+  .button.icon-right:before {;
+    color: $light;
+  }
+}
+
+.main-content {
+  .scroll-content {
+    padding: 10px;
+  }
+}

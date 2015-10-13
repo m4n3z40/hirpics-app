@@ -17,7 +17,7 @@ angular.module('hirpics.controllers', [])
       center: {
         lat: -22.9710,
         lng: -43.3907,
-        zoom: 15
+        zoom: 14
       },
       tiles: {
         url: 'https://api.mapbox.com/v4/m4n3z40.nmffbeop/{z}/{x}/{y}.png?' +
@@ -27,6 +27,8 @@ angular.module('hirpics.controllers', [])
         }
       },
       defaults: {
+        zoomControl: false,
+        doubleClickZoom: true,
         scrollWheelZoom: false
       }
     }
@@ -37,8 +39,7 @@ angular.module('hirpics.controllers', [])
     angular.extend($scope.mapOptions, {
       center: {
         lat: position.coords.latitude,
-        lng: position.coords.longitude,
-        zoom: 15
+        lng: position.coords.longitude
       },
       markers: {
         me: {
@@ -73,7 +74,8 @@ angular.module('hirpics.controllers', [])
       placeName: 'Barra da Tijuca',
       image: picsRootUrl + '/place_2/ff22d8f4ca69a5b6e5900e2c7d7f88ab.jpeg',
       picsCount: 45,
-      lastPictureTaken: '5 minutes'
+      lastPictureTaken: '5 minutes',
+      onLeft: true
     },
     {
       placeId: 2,
@@ -105,7 +107,8 @@ angular.module('hirpics.controllers', [])
       placeName: 'Faculdade Desicion de Negócios',
       image: picsRootUrl + '/place_6/d4811182539590b0f56b360d1a2cb334.jpeg',
       picsCount: 100,
-      lastPictureTaken: '5 minutes'
+      lastPictureTaken: '5 minutes',
+      onRigt: true
     },
     {
       placeId: 6,

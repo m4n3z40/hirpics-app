@@ -1,4 +1,4 @@
-<ion-view view-title="Home">
+<ion-view view-title="Nearest Pics">
   <ion-content>
     <leaflet height="295px"
              defaults="mapOptions.defaults"
@@ -8,9 +8,11 @@
     >
     </leaflet>
     <div class="places-tiles">
-      <div class="places-tiles-item" ng-repeat="place in nearestPlaces">
-        <place-tile place="place" on-click="goToPlacePics(place.placeId)"></place-tile>
-      </div>
+        <place-tile ng-repeat="place in nearestPlaces"
+                    place="place"
+                    on-click="goToPlacePics(place.placeId)"
+        >
+        </place-tile>
     </div>
   </ion-content>
 </ion-view>

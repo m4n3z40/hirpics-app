@@ -8,11 +8,14 @@
     >
     </leaflet>
     <div class="places-tiles">
-        <place-tile ng-repeat="place in nearestPlaces"
-                    place="place"
-                    on-click="goToPlacePics(place.placeId)"
-        >
-        </place-tile>
+      <h4 class="no-places" ng-show="nearestPlaces.length === 0">
+        No pics was taken near you :(
+      </h4>
+      <place-tile ng-repeat="place in nearestPlaces"
+                  place="place"
+                  on-click="goToPlacePics(place.placeId)"
+      >
+      </place-tile>
     </div>
   </ion-content>
 </ion-view>

@@ -9355,3 +9355,7 @@ a.button {
     width: 100%; }
     .place-tile footer p {
       text-align: right; }
+
+.places-tiles .no-places {
+  text-align: center;
+  margin: 20px 0 0; }

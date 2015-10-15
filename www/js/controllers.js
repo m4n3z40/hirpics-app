@@ -6,19 +6,31 @@ angular.module('hirpics.controllers', [], function(UserPositionProvider) {
   });
 })
 
-.controller('AppCtrl', function($scope, MapConfig, UserPosition) {
+.controller('AppCtrl', function($scope, MapConfig, UserPosition, UserService) {
   // Gets available the platform id
   $scope.platform = ionic.Platform.platform();
 
+  // The current user
+  $scope.currentUser = null;
+
   // We need to start the map data
   angular.extend($scope, {
-    mapOptions: MapConfig
+    mapOptions: MapConfig,
+    position: {}
+  });
+
+  // Get the current user
+  UserService.current().then(function (user) {
+    $scope.currentUser = user;
   });
 
   // Lets start watching the user position
   UserPosition.current(function (position) {
     var lat = position.coords.latitude,
         lng = position.coords.longitude;
+
+    $scope.position.latitude = lat;
+    $scope.position.longitude = lng;
 
     angular.extend($scope.mapOptions, {
       center: {
@@ -41,20 +53,36 @@ angular.module('hirpics.controllers', [], function(UserPositionProvider) {
   });
 })
 
-.controller('HomeCtrl', function($scope, NearestPlacesService) {
+.controller('HomeCtrl', function($scope, $state, PlacesService) {
   $scope.goToPlacePics = function goToPlacePics(placeId) {
-    console.log('Go to place ' + placeId);
+    $state.go('app.place-pics', {placeId: placeId});
   };
 
   $scope.nearestPlaces = [];
 
-  NearestPlacesService.getAll().then(function(places) {
-    $scope.nearestPlaces = places;
-  });
+  PlacesService.getNearest($scope.position.latitude, $scope.position.longitude)
+    .then(function(places) {
+      $scope.nearestPlaces = places;
+    });
 })
 
-.controller('PlacePicCtrl', function($scope) {
+.controller('PlacePicCtrl', function($scope, $stateParams, PlacesService, PicsService) {
+  var placeId = Number($stateParams.placeId);
 
+  $scope.place = {placeName: 'No place'};
+  $scope.pics = [];
+
+  PlacesService.getById(placeId).then(function(place) {
+    $scope.place = place;
+  });
+
+  PicsService.getAllByPlaceId(placeId).then(function(pics) {
+    $scope.pics = pics;
+  });
+
+  $scope.onPicClick = function(picId) {
+    console.log(picId);
+  };
 })
 
 .controller('MyPicsCtrl', function($scope) {

@@ -1,5 +1,11 @@
-<ion-view view-title="Place Pics">
+<ion-view class="page place-pics">
+  <ion-nav-title>{{place.placeName}}</ion-nav-title>
   <ion-content>
-    <h1>Place Pics</h1>
+    <div class="list pics-card-list">
+      <div ng-show="pics.length === 0" class="item no-pics">
+        <h4>No pics were taken at this place :(</h4>
+      </div>
+      <pic-card ng-repeat="pic in pics" pic="pic" on-click="onPicClick(pic.picId)"></pic-card>
+    </div>
   </ion-content>
 </ion-view>

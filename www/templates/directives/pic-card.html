@@ -1,0 +1,16 @@
+<div class="item pic-card" ng-click="onClick && onClick()">
+  <div class="list card">
+
+    <div class="item item-avatar">
+      <img ng-src="{{pic.user.image}}" alt="{{pic.user.name}}"/>
+      <h2>{{pic.user.name}}</h2>
+      <p>{{pic.taken}} ago</p>
+    </div>
+
+    <div class="item item-body">
+      <p>{{pic.status}}</p>
+      <div class="image" ng-style="{backgroundImage: 'url(\'' + pic.image + '\')'}"></div>
+    </div>
+
+  </div>
+</div>

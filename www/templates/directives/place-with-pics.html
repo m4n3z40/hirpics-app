@@ -1,0 +1,20 @@
+<div class="place-with-pics" ng-click="onClick && onClick()">
+  <header>
+    <h2>{{place.placeName}}</h2>
+    <p>
+      <ng-pluralize count="place.picsCount" when="{'0': 'no photos',
+                                                   '1': '1 photo',
+                                                   'other': '{{place.picsCount}} photos'
+                                                  }"
+        >
+      </ng-pluralize>
+    </p>
+  </header>
+  <main>
+    <div class="image"
+         ng-repeat="pic in place.pics"
+         ng-style="{backgroundImage: 'url(\'' + pic.image + '\')'}"
+      >
+    </div>
+  </main>
+</div>

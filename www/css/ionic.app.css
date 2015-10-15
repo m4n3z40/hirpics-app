@@ -9394,9 +9394,46 @@ a.button {
       background-position: center;
       background-size: cover; }
 
+.place-with-pics {
+  margin-bottom: 10px; }
+  .place-with-pics:last-child {
+    margin-bottom: 0; }
+  .place-with-pics h2 {
+    font-size: 15px;
+    font-weight: 400;
+    color: #212121;
+    margin-bottom: 0; }
+  .place-with-pics header {
+    padding: 0 10px; }
+    .place-with-pics header p {
+      font-size: 12px;
+      font-weight: 200;
+      color: #616161; }
+  .place-with-pics main {
+    background: #fff;
+    padding: 10px;
+    display: flex;
+    flex-flow: row; }
+  .place-with-pics .image {
+    background-position: center;
+    background-size: cover;
+    height: 120px;
+    flex: 1;
+    margin-left: 10px; }
+    .place-with-pics .image:first-child {
+      margin-left: 0; }
+
 .places-tiles .no-places {
   text-align: center;
   margin: 30px 0 0; }
 
 .page.place-pics .scroll-content {
   padding: 0; }
+
+.page.my-pics {
+  background: #f0f1f2; }
+  .page.my-pics .scroll-content {
+    padding: 0; }
+
+.places-with-pics-list {
+  padding-top: 15px; }

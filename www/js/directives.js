@@ -22,4 +22,16 @@ angular.module('hirpics.directives', [])
     },
     templateUrl: 'templates/directives/pic-card.html'
   };
+})
+
+.directive('placeWithPics', function() {
+  return {
+    restrict: 'E',
+    replace: true,
+    scope: {
+      place: '=',
+      onClick: '&'
+    },
+    templateUrl: 'templates/directives/place-with-pics.html'
+  };
 });

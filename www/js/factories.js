@@ -17,6 +17,20 @@ angular.module('hirpics.factories', [])
 
 .factory('PlacesService', function() {
   var picsRootUrl = 'http://localhost:3000/public/pics',
+    pics = [
+      {
+        picId: 1,
+        image: picsRootUrl + '/place_2/ff22d8f4ca69a5b6e5900e2c7d7f88ab.jpeg'
+      },
+      {
+        picId: 2,
+        image: picsRootUrl + '/place_3/5e1796c80769031381dc8403f1e2b329.jpeg'
+      },
+      {
+        picId: 3,
+        image: picsRootUrl + '/place_4/c5282a9e13c9a4fa55435efe199eb238.jpeg'
+      }
+    ],
     places = [
       {
         placeId: 1,
@@ -77,6 +91,15 @@ angular.module('hirpics.factories', [])
     getById: function (id) {
       return Promise.resolve(
         places.filter(function(place) { return place.placeId === id })[0]
+      );
+    },
+    getByUserId: function (userId, qtyPhotos) {
+      return Promise.resolve(
+        places.map(function(place) {
+          place.pics = pics;
+
+          return place;
+        })
       );
     }
   };

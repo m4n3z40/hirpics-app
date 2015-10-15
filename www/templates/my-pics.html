@@ -1,5 +1,13 @@
-<ion-view view-title="My Pics">
+<ion-view class="page my-pics">
+  <ion-nav-title>Pics of {{currentUser.name.split(' ')[0]}}</ion-nav-title>
   <ion-content>
-    <h1>My Pics</h1>
+    <div class="places-with-pics-list">
+      <h4 class="no-places" ng-show="places.length === 0">You have not taken any pics :(</h4>
+      <place-with-pics ng-repeat="place in places"
+                       place="place"
+                       on-click="onPlaceClick(place.placeId)"
+      >
+      </place-with-pics>
+    </div>
   </ion-content>
 </ion-view>

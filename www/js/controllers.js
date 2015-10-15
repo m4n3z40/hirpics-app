@@ -85,8 +85,16 @@ angular.module('hirpics.controllers', [], function(UserPositionProvider) {
   };
 })
 
-.controller('MyPicsCtrl', function($scope) {
+.controller('MyPicsCtrl', function($scope, $state, PlacesService) {
+  $scope.places = [];
 
+  $scope.onPlaceClick = function(placeId) {
+    $state.go('app.place-pics', {placeId: placeId});
+  };
+
+  PlacesService.getByUserId($scope.currentUser.id, 3).then(function(places) {
+    $scope.places = places;
+  });
 })
 
 .controller('AboutCtrl', function($scope) {

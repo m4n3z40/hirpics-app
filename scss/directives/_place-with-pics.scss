@@ -1,0 +1,43 @@
+.place-with-pics {
+  margin-bottom: 10px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  h2 {
+    font-size: 15px;
+    font-weight: 400;
+    color: #212121;
+    margin-bottom: 0;
+  }
+
+  header {
+    padding: 0 10px;
+    p {
+      font-size: 12px;
+      font-weight: 200;
+      color: #616161;
+    }
+  }
+
+  main {
+    background: $light;
+    padding: 10px;
+    display: flex;
+    flex-flow: row;
+  }
+
+  .image {
+    background-position: center;
+    background-size: cover;
+    height: 120px;
+    flex: 1;
+    margin-left: 10px;
+
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+
+}

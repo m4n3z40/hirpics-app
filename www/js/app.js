@@ -69,6 +69,16 @@ angular.module('hirpics', [
       }
     })
 
+    .state('app.add-pic', {
+      url: '/add-pic',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/add-pic.html',
+          controller: 'AddPicCtrl'
+        }
+      }
+    })
+
     .state('app.about', {
       url: '/about',
       views: {

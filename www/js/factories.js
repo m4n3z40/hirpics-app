@@ -105,7 +105,7 @@ angular.module('hirpics.factories', [])
   };
 })
 
-.factory('PicsService', function() {
+.factory('PicsService', function(ServerApiUrlBase) {
   var picsRootUrl = 'http://localhost:3000/public/pics',
     pics = [
       {
@@ -191,6 +191,30 @@ angular.module('hirpics.factories', [])
   return {
     getAllByPlaceId: function (id) {
       return Promise.resolve(pics);
+    },
+    save: function (options) {
+      try {
+        var uploadOpts = new FileUploadOptions();
+        var params = {};
+
+        params.userId = options.userId;
+        params.status = options.status;
+        params.lat = options.lat;
+        params.lon = options.lng;
+
+        uploadOpts.fileKey = 'pic';
+        uploadOpts.fileName = options.pic.substr(options.pic.lastIndexOf('/') + 1);
+        uploadOpts.mimeType = 'image/jpeg';
+        uploadOpts.params = params;
+
+        return new Promise(function (resolve, reject) {
+          var ft = new FileTransfer();
+
+          ft.upload(options.pic, ServerApiUrlBase + 'pics', resolve, reject, uploadOpts);
+        });
+      } catch(e) {
+        return Promise.reject(e);
+      }
     }
   };
 });

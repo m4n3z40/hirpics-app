@@ -1,5 +1,9 @@
 angular.module('hirpics.configs', [])
 
+.value('ServerApiUrlBase', 'https://hirpics-api.herokuapp.com/api/')
+
+.value('ServerPicsUrlBase', 'https://hirpics-api.herokuapp.com/public/pics/')
+
 .value('MapConfig', {
   center: {
     lat: -22.9710,

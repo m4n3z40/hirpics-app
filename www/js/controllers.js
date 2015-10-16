@@ -6,18 +6,30 @@ angular.module('hirpics.controllers', [], function(UserPositionProvider) {
   });
 })
 
-.controller('AppCtrl', function($scope, MapConfig, UserPosition, UserService) {
+.controller('AppCtrl', function($scope, $state, MapConfig, UserService, UserPosition, Camera) {
   // Gets available the platform id
   $scope.platform = ionic.Platform.platform();
 
   // The current user
   $scope.currentUser = null;
+  $scope.lastPicTaken = null;
 
   // We need to start the map data
   angular.extend($scope, {
     mapOptions: MapConfig,
     position: {}
   });
+
+  // Expose a function to the 'take pic' button to call
+  $scope.takePic = function() {
+    Camera.takePic(function(imgData) {
+      $scope.lastPicTaken = imgData;
+
+      $state.go('app.add-pic');
+    }, function(error) {
+      alert(error);
+    });
+  };
 
   // Get the current user
   UserService.current().then(function (user) {
@@ -95,6 +107,46 @@ angular.module('hirpics.controllers', [], function(UserPositionProvider) {
   PlacesService.getByUserId($scope.currentUser.id, 3).then(function(places) {
     $scope.places = places;
   });
+})
+
+.controller('AddPicCtrl', function($scope, $ionicLoading, PicsService, $ionicPopup, $ionicHistory, $state) {
+  $scope.form = {status: ''};
+
+  $scope.onStatusKeyUp = function(e) {
+    if (e.keyCode === 13) {
+      cordova.plugins.Keyboard.close();
+    }
+  };
+
+  $scope.publishPic = function() {
+    $ionicLoading.show({
+      template: 'Publishing pic...'
+    });
+
+    var picData = {
+      userId: $scope.currentUser.id,
+      status: $scope.form.status,
+      lat: $scope.position.latitude,
+      lng: $scope.position.longitude,
+      pic: $scope.lastPicTaken
+    };
+
+    PicsService.save(picData).then(function() {
+      $ionicLoading.hide();
+
+      $ionicPopup.alert({
+        title: 'Pic published',
+        template: 'Your pic was published successfully!'
+      }).then(function(res) {
+        $ionicHistory.currentView($ionicHistory.backView());
+        $state.go('app.my-pics', null, {location: 'replace'});
+      });
+    }, function(error) {
+      $ionicLoading.hide();
+
+      alert('Error saving pic: ' + JSON.stringify(error));
+    });
+  };
 })
 
 .controller('AboutCtrl', function($scope) {

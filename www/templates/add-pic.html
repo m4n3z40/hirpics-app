@@ -1,0 +1,15 @@
+<ion-view view-title="Publish Pic" class="page add-pic">
+  <ion-content>
+    <div class="list">
+      <label class="item item-input item-floating-label">
+        <span class="input-label">What are you thinking?</span>
+        <input type="text" placeholder="What are you thinking?" ng-keyup="onStatusKeyUp($event)">
+      </label>
+    </div>
+    <div class="pic-wrapper">
+      <h4>Your pic:</h4>
+      <div class="pic pic-taken" style="{{'background-image: url(\'' + lastPicTaken + '\');'}}"></div>
+    </div>
+    <button class="button button-block" ng-click="publishPic()">Publish</button>
+  </ion-content>
+</ion-view>

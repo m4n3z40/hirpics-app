@@ -3,8 +3,20 @@ angular.module('hirpics.providers', [])
 .provider('UserPosition', function() {
   var options = {};
 
+  document.addEventListener('deviceReady', function() {
+    options = {
+      quality: 100,
+      destinationType: Camera.DestinationType.FILE_URI,
+      sourceType: Camera.PictureSourceType.CAMERA,
+      allowEdit: true,
+      encodingType: Camera.EncodingType.JPEG,
+      popoverOptions: CameraPopoverOptions,
+      saveToPhotoAlbum: false
+    };
+  });
+
   this.setOptions = function (opts) {
-      options = opts;
+    options = Object.assign(options, opts);
   };
 
   this.$get = function () {
@@ -17,4 +29,20 @@ angular.module('hirpics.providers', [])
       }
     };
   }
+})
+
+.provider('Camera', function() {
+  var options = {};
+
+  this.setOptions = function (opts) {
+      options = opts;
+  };
+
+  this.$get = function() {
+    return {
+      takePic: function (onSuccess, onError) {
+        navigator.camera.getPicture(onSuccess, onError, options);
+      }
+    };
+  };
 });

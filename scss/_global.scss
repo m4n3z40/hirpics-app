@@ -24,3 +24,13 @@
     padding: 10px;
   }
 }
+
+.popup .popup-buttons .button {
+  background: #ff7300;
+  border: 1px solid #ff7300;
+
+  &.button-positive {
+    background: #ff7300;
+    border: 1px solid #ff7300;
+  }
+}

@@ -9303,6 +9303,13 @@ a.button {
 .main-content .scroll-content {
   padding: 10px; }
 
+.popup .popup-buttons .button {
+  background: #ff7300;
+  border: 1px solid #ff7300; }
+  .popup .popup-buttons .button.button-positive {
+    background: #ff7300;
+    border: 1px solid #ff7300; }
+
 .place-tile {
   height: 180px;
   margin-top: 10px;
@@ -9437,3 +9444,14 @@ a.button {
 
 .places-with-pics-list {
   padding-top: 15px; }
+
+.page.add-pic .pic {
+  background-position: center;
+  background-size: cover;
+  height: 220px; }
+
+.page.add-pic button.button.button-block {
+  background: #ff7300;
+  color: #fff; }
+  .page.add-pic button.button.button-block.activated {
+    color: rgba(255, 255, 255, 0.6); }

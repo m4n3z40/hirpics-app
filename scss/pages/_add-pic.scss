@@ -1,0 +1,16 @@
+.page.add-pic {
+  .pic {
+    background-position: center;
+    background-size: cover;
+    height: 220px;
+  }
+
+  button.button.button-block {
+    background: #ff7300;
+    color: $light;
+
+    &.activated {
+      color: rgba(255, 255, 255, .6);
+    }
+  }
+}

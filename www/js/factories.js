@@ -210,7 +210,7 @@ angular.module('hirpics.factories', [])
         return new Promise(function (resolve, reject) {
           var ft = new FileTransfer();
 
-          ft.upload(options.pic, ServerApiUrlBase + 'pics', resolve, reject, uploadOpts);
+          ft.upload(options.pic, ServerApiUrlBase + '/pics', resolve, reject, uploadOpts);
         });
       } catch(e) {
         return Promise.reject(e);

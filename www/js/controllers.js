@@ -36,13 +36,19 @@ angular.module('hirpics.controllers', [], function(UserPositionProvider) {
     $scope.currentUser = user;
   });
 
+  $scope.loading = true;
+
   // Lets start watching the user position
   UserPosition.current(function (position) {
     var lat = position.coords.latitude,
         lng = position.coords.longitude;
 
-    $scope.position.latitude = lat;
-    $scope.position.longitude = lng;
+    $scope.loading = false;
+
+    $scope.position = {
+      latitude: lat,
+      longitude: lng
+    };
 
     angular.extend($scope.mapOptions, {
       center: {
@@ -72,10 +78,23 @@ angular.module('hirpics.controllers', [], function(UserPositionProvider) {
 
   $scope.nearestPlaces = [];
 
-  PlacesService.getNearest($scope.position.latitude, $scope.position.longitude)
-    .then(function(places) {
-      $scope.nearestPlaces = places;
-    });
+  $scope.$watch('position', function() {
+    var lat = $scope.position.latitude,
+        lng = $scope.position.longitude;
+
+    if (!lat || !lng) {
+      return;
+    }
+
+    $scope.loading = true;
+
+    PlacesService.getNearest(lat, lng)
+      .then(function(places) {
+        $scope.loading = false;
+
+        $scope.nearestPlaces = places;
+      });
+  });
 })
 
 .controller('PlacePicCtrl', function($scope, $stateParams, PlacesService, PicsService) {
@@ -138,6 +157,8 @@ angular.module('hirpics.controllers', [], function(UserPositionProvider) {
         title: 'Pic published',
         template: 'Your pic was published successfully!'
       }).then(function(res) {
+        $scope.form.status = '';
+
         $ionicHistory.currentView($ionicHistory.backView());
         $state.go('app.my-pics', null, {location: 'replace'});
       });

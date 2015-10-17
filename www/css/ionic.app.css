@@ -9430,9 +9430,16 @@ a.button {
     .place-with-pics .image:first-child {
       margin-left: 0; }
 
-.places-tiles .no-places {
+@keyframes blinker {
+  50% {
+    opacity: 0.0; } }
+
+.places-tiles .no-places, .places-tiles .loading {
   text-align: center;
   margin: 30px 0 0; }
+
+.places-tiles .loading {
+  animation: blinker 1s linear infinite; }
 
 .page.place-pics .scroll-content {
   padding: 0; }

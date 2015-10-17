@@ -15,182 +15,103 @@ angular.module('hirpics.factories', [])
   };
 })
 
-.factory('PlacesService', function() {
-  var picsRootUrl = 'http://localhost:3000/public/pics',
-    pics = [
-      {
-        picId: 1,
-        image: picsRootUrl + '/place_2/ff22d8f4ca69a5b6e5900e2c7d7f88ab.jpeg'
-      },
-      {
-        picId: 2,
-        image: picsRootUrl + '/place_3/5e1796c80769031381dc8403f1e2b329.jpeg'
-      },
-      {
-        picId: 3,
-        image: picsRootUrl + '/place_4/c5282a9e13c9a4fa55435efe199eb238.jpeg'
-      }
-    ],
-    places = [
-      {
-        placeId: 1,
-        weight: 2,
-        placeName: 'Barra da Tijuca',
-        image: picsRootUrl + '/place_2/ff22d8f4ca69a5b6e5900e2c7d7f88ab.jpeg',
-        picsCount: 45,
-        lastPictureTaken: '5 minutes',
-        onLeft: true
-      },
-      {
-        placeId: 2,
-        weight: 1,
-        placeName: 'Barra Music',
-        image: picsRootUrl + '/place_3/5e1796c80769031381dc8403f1e2b329.jpeg',
-        picsCount: 32,
-        lastPictureTaken: '5 minutes'
-      },
-      {
-        placeId: 3,
-        weight: 3,
-        placeName: 'Porto Alegre',
-        image: picsRootUrl + '/place_4/c5282a9e13c9a4fa55435efe199eb238.jpeg',
-        picsCount: 55,
-        lastPictureTaken: '5 minutes'
-      },
-      {
-        placeId: 4,
-        weight: 1,
-        placeName: 'Guaíba',
-        image: picsRootUrl + '/place_5/aebd08adb8861887228222217702643c.jpeg',
-        picsCount: 30,
-        lastPictureTaken: '5 minutes'
-      },
-      {
-        placeId: 5,
-        weight: 2,
-        placeName: 'Faculdade Desicion de Negócios',
-        image: picsRootUrl + '/place_6/d4811182539590b0f56b360d1a2cb334.jpeg',
-        picsCount: 100,
-        lastPictureTaken: '5 minutes',
-        onRigt: true
-      },
-      {
-        placeId: 6,
-        weight: 3,
-        placeName: 'Some Other Place',
-        image: picsRootUrl + '/place_7/10d54d33247e50e6d4235252374cac05.jpeg',
-        picsCount: 200,
-        lastPictureTaken: '5 minutes'
-      }
-    ];
+.factory('PlacesService', function($http, ServerApiUrlBase, ServerPicsUrlBase) {
+  function transformPic(pic) {
+    return {
+      picId: pic.id,
+      image: ServerPicsUrlBase + pic.path
+    };
+  }
+
+  function transformPlace(place, i) {
+    var weight = (i % 3) + 1;
+
+    return {
+      placeId: place.id,
+      weight: weight,
+      onLeft: false,
+      onRight: weight === 2,
+      image: ServerPicsUrlBase + place.lastPicPath,
+      placeName: place.neighborhood + ' - ' + place.admLevel2Short,
+      lastPictureTaken: moment(place.updatedAt).fromNow(),
+      picsCount: place.picsCount,
+      pics: place.pics && place.pics.length ? place.pics.map(transformPic) : []
+    };
+  }
 
   return {
     getNearest: function (lat, lng, maxDistance) {
-      return Promise.resolve(places)
+      maxDistance = maxDistance || 40;
+
+      return $http.get(ServerApiUrlBase + '/places/nearest/' + [lat, lng, maxDistance].join('/'))
+        .then(function(result) {
+          var data = result.data;
+
+          if (data.errors.length > 0) {
+            throw new Error(data.errors.join('\n'));
+          }
+
+          return data.places.map(transformPlace);
+        });
     },
     getById: function (id) {
-      return Promise.resolve(
-        places.filter(function(place) { return place.placeId === id })[0]
-      );
+      return $http.get(ServerApiUrlBase + '/places/' + id).then(function(result) {
+        var data = result.data;
+
+        if (data.errors.length > 0) {
+          throw new Error(data.errors.join('\n'));
+        }
+
+        return transformPlace(data.place);
+      });
     },
     getByUserId: function (userId, qtyPhotos) {
-      return Promise.resolve(
-        places.map(function(place) {
-          place.pics = pics;
+      return $http.get(ServerApiUrlBase + '/users/' + userId + '/places/pics')
+        .then(function(result) {
+          var data = result.data;
 
-          return place;
-        })
-      );
+          if (data.errors.length > 0) {
+            throw new Error(data.errors.join('\n'));
+          }
+
+          return data.places.map(transformPlace);
+        });
     }
   };
 })
 
-.factory('PicsService', function(ServerApiUrlBase) {
-  var picsRootUrl = 'http://localhost:3000/public/pics',
-    pics = [
-      {
-        picId: 1,
-        placeId: 1,
-        status: 'This is some interesting place.',
-        taken: '5 hours',
-        image: picsRootUrl + '/place_2/ff22d8f4ca69a5b6e5900e2c7d7f88ab.jpeg',
-        user: {
-          id: 1,
-          name: 'Allan Baptista',
-          image: 'http://www.gravatar.com/avatar/be2611d0195a7d8df11af3ed6bdef3b5.jpg?s=100',
-          email: 'allan@ignit.io'
-        }
-      },
-      {
-        picId: 2,
-        placeId: 1,
-        status: 'This is some interesting place.',
-        taken: '5 hours',
-        image: picsRootUrl + '/place_3/5e1796c80769031381dc8403f1e2b329.jpeg',
-        user: {
-          id: 1,
-          name: 'Allan Baptista',
-          image: 'http://www.gravatar.com/avatar/be2611d0195a7d8df11af3ed6bdef3b5.jpg?s=100',
-          email: 'allan@ignit.io'
-        }
-      },
-      {
-        picId: 3,
-        placeId: 1,
-        status: 'This is some interesting place.',
-        taken: '5 hours',
-        image: picsRootUrl + '/place_4/c5282a9e13c9a4fa55435efe199eb238.jpeg',
-        user: {
-          id: 1,
-          name: 'Allan Baptista',
-          image: 'http://www.gravatar.com/avatar/be2611d0195a7d8df11af3ed6bdef3b5.jpg?s=100',
-          email: 'allan@ignit.io'
-        }
-      },
-      {
-        picId: 4,
-        placeId: 1,
-        status: 'This is some interesting place.',
-        taken: '5 hours',
-        image: picsRootUrl + '/place_5/aebd08adb8861887228222217702643c.jpeg',
-        user: {
-          id: 1,
-          name: 'Allan Baptista',
-          image: 'http://www.gravatar.com/avatar/be2611d0195a7d8df11af3ed6bdef3b5.jpg?s=100',
-          email: 'allan@ignit.io'
-        }
-      },
-      {
-        picId: 5,
-        placeId: 1,
-        status: 'This is some interesting place.',
-        taken: '5 hours',
-        image: picsRootUrl + '/place_6/d4811182539590b0f56b360d1a2cb334.jpeg',
-        user: {
-          id: 1,
-          name: 'Allan Baptista',
-          image: 'http://www.gravatar.com/avatar/be2611d0195a7d8df11af3ed6bdef3b5.jpg?s=100',
-          email: 'allan@ignit.io'
-        }
-      },
-      {
-        picId: 6,
-        placeId: 1,
-        status: 'This is some interesting place.',
-        taken: '5 hours',
-        image: picsRootUrl + '/place_7/10d54d33247e50e6d4235252374cac05.jpeg',
-        user: {
-          id: 1,
-          name: 'Allan Baptista',
-          image: 'http://www.gravatar.com/avatar/be2611d0195a7d8df11af3ed6bdef3b5.jpg?s=100',
-          email: 'allan@ignit.io'
-        }
-      }
-    ];
+.factory('PicsService', function($http, ServerApiUrlBase, ServerPicsUrlBase) {
+  function transformUser(user) {
+    return {
+      id: user.id,
+      name: user.name,
+      image: user.profilePicPath,
+      email: user.email
+    };
+  }
+
+  function transformPic(pic) {
+    return {
+      picId: pic.id,
+      placeId: pic.placeId,
+      status: pic.status,
+      taken: moment(pic.createdAt).fromNow(),
+      image: ServerPicsUrlBase + pic.path,
+      user: transformUser(pic.user)
+    };
+  }
 
   return {
     getAllByPlaceId: function (id) {
-      return Promise.resolve(pics);
+      return $http.get(ServerApiUrlBase + '/places/' + id + '/pics/users').then(function(result) {
+        var data = result.data;
+
+        if (data.errors.length > 0) {
+          throw new Error(data.errors.join('\n'));
+        }
+
+        return data.pics.map(transformPic);
+      });
     },
     save: function (options) {
       try {

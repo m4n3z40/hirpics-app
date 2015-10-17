@@ -1,6 +1,14 @@
+@keyframes blinker {
+  50% { opacity: 0.0; }
+}
+
 .places-tiles {
-  .no-places {
+  .no-places, .loading {
     text-align: center;
     margin: 30px 0 0;
+  }
+
+  .loading {
+    animation: blinker 1s linear infinite;
   }
 }

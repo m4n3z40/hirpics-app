@@ -3,7 +3,11 @@
     <div class="list">
       <label class="item item-input item-floating-label">
         <span class="input-label">What are you thinking?</span>
-        <input type="text" placeholder="What are you thinking?" ng-keyup="onStatusKeyUp($event)">
+        <input type="text"
+               placeholder="What are you thinking?"
+               ng-model="form.status"
+               ng-keyup="onStatusKeyUp($event)"
+        >
       </label>
     </div>
     <div class="pic-wrapper">

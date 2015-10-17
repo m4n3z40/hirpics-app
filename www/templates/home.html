@@ -8,14 +8,19 @@
     >
     </leaflet>
     <div class="places-tiles">
-      <h4 class="no-places" ng-show="nearestPlaces.length === 0">
+      <h4 class="loading" ng-hide="!loading">
+        Looking for pics taken near you...
+      </h4>
+      <h4 class="no-places" ng-show="!loading && nearestPlaces.length === 0">
         No pics was taken near you :(
       </h4>
-      <place-tile ng-repeat="place in nearestPlaces"
-                  place="place"
-                  on-click="goToPlacePics(place.placeId)"
-      >
-      </place-tile>
+      <div class="wrapper" ng-show="!loading && nearestPlaces.length">
+        <place-tile ng-repeat="place in nearestPlaces"
+                    place="place"
+                    on-click="goToPlacePics(place.placeId)"
+        >
+        </place-tile>
+      </div>
     </div>
   </ion-content>
 </ion-view>

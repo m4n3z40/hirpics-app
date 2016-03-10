@@ -7,6 +7,10 @@
   "dependencies": {
     "leaflet": "~0.7.5",
     "angular-leaflet-directive": "~0.8.8",
-    "moment": "~2.10.6"
+    "moment": "~2.10.6",
+    "angular-simple-logger": "~0.1.7"
+  },
+  "resolutions": {
+    "angular-simple-logger": "~0.0.1"
   }
 }

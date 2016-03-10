@@ -16,7 +16,7 @@ angular.module('hirpics.providers', [])
   });
 
   this.setOptions = function (opts) {
-    options = Object.assign(options, opts);
+    options = opts;
   };
 
   this.$get = function () {
